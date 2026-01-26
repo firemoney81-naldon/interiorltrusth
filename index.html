@@ -1,23 +1,574 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+
+    <!-- SEO를 위한 JSON-LD 구조화 데이터 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "순천 인테리어 디자인 스튜디오",
+      "image": "https://yourdomain.com/logo-interior.png",
+      "url": "https://yourdomain.com",
+      "telephone": "010-1234-5678",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "순천시 신대지구 123-45",
+        "addressLocality": "순천시",
+        "addressRegion": "전라남도",
+        "postalCode": "58000",
+        "addressCountry": "KR"
+      },
+      "priceRange": "$$$",
+      "knowsAbout": "InteriorDesign",
+      "serviceType": "순천 인테리어 시공 및 리모델링",
+      "areaServed": {
+        "@type": "City",
+        "name": "순천시"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "순천 인테리어 서비스 패키지",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "아파트 전체 리모델링 (평당 견적)"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": "1500000",
+              "priceCurrency": "KRW",
+              "description": "20평대 기준, 평당 150만원부터 시작하는 전체 리모델링 서비스"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "부분 인테리어 (주방/욕실)"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": "5000000",
+              "priceCurrency": "KRW",
+              "description": "부분 공간 집중 시공 서비스"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+
+    <!-- Google Fonts: Noto Sans KR -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS Reset and Global Styles */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            background-color: #f8f8f8; /* Soft background color */
+            color: #333;
+        }
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        a {
+            text-decoration: none;
+            color: #4CAF50; /* Primary color */
+            font-weight: 600;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Header and Navigation */
+        header {
+            background-color: #4CAF50; /* Earthy green primary color */
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 8px solid #388E3C;
+        }
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 20px;
+        }
+        nav a {
+            color: white;
+            font-weight: 400;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: background-color 0.3s ease;
+        }
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Section Styling */
+        section {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            margin-bottom: 30px;
+        }
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #388E3C; /* Darker green for headings */
+            border-bottom: 3px solid #E8F5E9; /* Light green separator */
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        h3 {
+            font-size: 1.5rem;
+            color: #555;
+            margin-top: 2rem;
+        }
+        p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Keyword Tags */
+        .keyword-tags {
+            margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .keyword-tags a {
+            background-color: #E8F5E9;
+            color: #388E3C;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+        .keyword-tags a:hover {
+            background-color: #DCEDC8;
+        }
+
+        /* Tables and Data Presentation */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f1f1f1;
+            font-weight: 700;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        .price-highlight {
+            font-weight: 700;
+            color: #E65100; /* Orange highlight color */
+            font-size: 1.1rem;
+        }
+
+        /* Call to Action Buttons */
+        .cta-button {
+            display: inline-block;
+            background-color: #FF9800; /* Orange CTA color */
+            color: white;
+            font-weight: 700;
+            padding: 15px 30px;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
+        }
+        .cta-button:hover {
+            background-color: #F57C00;
+            transform: translateY(-2px);
+        }
+
+        /* Accordion (FAQ) */
+        dl dt {
+            background-color: #E8F5E9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        dl dt:hover {
+            background-color: #DCEDC8;
+        }
+        dl dd {
+            background-color: #ffffff;
+            padding: 15px 20px;
+            border: 1px solid #E8F5E9;
+            border-radius: 8px;
+            margin: 0 0 20px 0;
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            display: block;
+        }
+        dl dt.active + dd {
+            max-height: 500px; /* Adjust based on content length */
+            opacity: 1;
+        }
+
+        /* Check List */
+        .check-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 10px;
+            list-style: none;
+            font-size: 1.1rem;
+        }
+        .check-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #4CAF50;
+            font-weight: 700;
+        }
+
+        /* Input Forms for Dwell Time Optimization */
+        form {
+            background-color: #f9f9f9;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #eee;
+            margin-top: 20px;
+        }
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        form input[type="text"], form input[type="email"], form input[type="tel"], form select, form textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        form textarea {
+            resize: vertical;
+        }
+        form button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        form button:hover {
+            background-color: #388E3C;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9rem;
+            color: #888;
+            background-color: #e9ecef;
+            margin-top: 30px;
+            border-top: 1px solid #ddd;
+        }
+
+        /* Graph representation (using CSS/HTML) */
+        .chart-container {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        .chart-bar {
+            background-color: #4CAF50;
+            height: 30px;
+            margin-bottom: 10px;
+            line-height: 30px;
+            color: white;
+            padding-left: 10px;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>순천 인테리어 전문 업체: 2026년 맞춤형 리모델링</h1>
+        <p>순천 아파트, 주택 인테리어 견적부터 시공까지, 믿을 수 있는 전문가와 함께하세요.</p>
+        <nav>
+            <ul>
+                <li><a href="#intro">인테리어 소개</a></li>
+                <li><a href="#services">주요 서비스</a></li>
+                <li><a href="#estimate">예상 비용 견적</a></li>
+                <li><a href="#faq">자주 묻는 질문</a></li>
+                <li><a href="#contact">상담 신청</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <!-- 인트로 및 메인 키워드 섹션 -->
+        <section id="intro">
+            <h2>순천 인테리어: 현명한 선택을 위한 가이드</h2>
+            <p><strong>순천 인테리어</strong> 시장은 끊임없이 변화하고 있습니다. 단순한 리모델링을 넘어, 거주자의 라이프스타일과 개성을 반영한 공간 디자인이 중요해지고 있습니다. 특히 2026년에는 친환경 소재와 스마트 홈 시스템 통합이 핵심 트렌드로 부상하고 있습니다. 저희는 <strong>순천 지역</strong> 특성에 대한 높은 이해도를 바탕으로, 고객님의 예산과 취향에 맞는 최적의 <strong>순천 인테리어 추천</strong> 솔루션을 제공합니다. 순천 신대지구 아파트, 오천지구 빌라 등 다양한 주거 형태에 맞춰 차별화된 <strong>내돈내산 후기</strong>를 만들어 드립니다.</p>
+
+            <div class="keyword-tags" aria-label="순천 인테리어 관련 키워드">
+                <a href="#contact">순천 인테리어 견적</a>
+                <a href="#price-table">순천 인테리어 비용</a>
+                <a href="#services">순천 아파트 인테리어</a>
+                <a href="#services">순천 주택 리모델링</a>
+                <a href="#faq">순천 인테리어 업체 순위</a>
+                <a href="#faq">순천 인테리어 잘하는 곳</a>
+                <a href="#price-table">순천 평당 인테리어 가격</a>
+                <a href="#services">순천 부분 인테리어</a>
+            </div>
+
+            <h3>2026년 순천 인테리어 트렌드 분석</h3>
+            <p>최근 <strong>순천 인테리어</strong> 트렌드는 '지속 가능성'과 '개인화'입니다. 미니멀리즘을 선호하는 고객층이 늘어나면서 불필요한 장식을 배제하고, 효율적인 수납 공간을 확보하는 <strong>순천 리모델링</strong>이 대세입니다. 또한, 순천 조례동, 연향동 등 오래된 주택가에서는 단열 보강을 통한 에너지 효율 개선이 중요한 이슈입니다. 저희는 최신 트렌드를 반영하여 고객님의 <strong>순천 인테리어 예상 금액</strong>을 절감하고, 만족도를 높이는 방향을 제안합니다.</p>
+            <p>특히 <strong>순천 신대지구 아파트 인테리어</strong>의 경우, 입주 시기가 비슷한 단지들이 많아 차별화된 디자인을 요구하는 고객이 많습니다. <strong>순천 오천지구 인테리어</strong> 역시 신규 입주 단지의 경우 A/S 및 사후 관리가 철저한 업체를 선호하는 경향이 있습니다. 저희는 이러한 지역별 특성을 꼼꼼히 분석하여 맞춤형 디자인을 제안합니다.</p>
+        </section>
+
+        <!-- 서비스 상세 설명 섹션 -->
+        <section id="services">
+            <h2>주요 순천 인테리어 서비스 종류</h2>
+            <p><strong>순천 인테리어 업체</strong> 선정 시 가장 중요한 것은 고객님의 필요에 맞는 서비스 형태를 선택하는 것입니다. 저희는 고객의 예산과 요구사항에 따라 전체 리모델링, 부분 인테리어, 그리고 상업 공간 디자인까지 다양한 서비스를 제공합니다.</p>
+
+            <h3>1. 순천 주거 공간 전체 리모델링 (아파트/주택)</h3>
+            <p><strong>순천 아파트 인테리어</strong> 및 주택 리모델링은 주방, 욕실, 거실, 방 전체를 아우르는 종합 시공 서비스입니다. 특히 <strong>순천 조례동</strong>, <strong>연향동</strong>, <strong>금당지구</strong> 등 준공된 지 10년 이상 된 아파트 리모델링 수요가 높습니다. 전체 리모델링의 <strong>장점</strong>은 통일감 있는 디자인과 높은 기능성 확보입니다. <strong>단점</strong>은 상대적으로 높은 <strong>순천 인테리어 비용</strong>입니다. 저희는 <strong>순천 지역</strong> 내 여러 아파트 단지(<strong>순천 신대지구</strong>, <strong>순천 오천지구</strong>, <strong>순천 조례동</strong>, <strong>순천 연향동</strong>, <strong>순천 왕지동</strong> 등)의 시공 경험을 바탕으로 최적의 <strong>순천 아파트 인테리어 추천</strong>을 드립니다.</p>
+            <p><strong>순천 주택 리모델링</strong>은 단열, 방수 등 기능적인 부분 개선이 아파트보다 중요합니다. <strong>순천 해룡면</strong>, <strong>서면</strong> 등 외곽 지역의 주택 리모델링 시 단열재 보강은 필수적이며, 이로 인해 <strong>순천 인테리어 가격</strong>이 다소 상승할 수 있습니다. 하지만 장기적으로 냉난방비 절감 효과를 볼 수 있습니다.</p>
+
+            <h3>2. 순천 부분 인테리어 (주방/욕실/바닥재)</h3>
+            <p><strong>순천 부분 인테리어</strong>는 전체 시공이 부담스러운 고객들을 위한 합리적인 선택입니다. 주방, 욕실, 바닥재 교체 등 필요한 공간만 선택적으로 리모델링할 수 있습니다. <strong>순천 주방 인테리어</strong>는 주부들의 선호도에 따라 수납 공간 확장, 조명 변화, 아일랜드 식탁 설치 등이 인기입니다. <strong>순천 욕실 리모델링</strong>은 타일, 수전, 위생도기 교체만으로도 큰 변화를 줄 수 있습니다. <strong>순천 도배</strong>, <strong>순천 장판</strong>, <strong>순천 샷시</strong> 교체도 대표적인 부분 인테리어입니다.</p>
+            <p><strong>순천 샷시 교체</strong>는 단열 효과를 극대화하여 겨울철 난방비 절감에 큰 도움을 줍니다. 특히 <strong>순천 왕지동</strong>, <strong>조곡동</strong> 등 연식이 있는 아파트에서는 샷시 교체만으로도 집 전체의 만족도가 크게 향상됩니다. 부분 인테리어는 <strong>순천 인테리어 저렴한곳</strong>을 찾는 고객에게 적합하며, <strong>순천 인테리어 싼곳</strong>을 찾더라도 퀄리티를 놓치지 않는 것이 중요합니다.</p>
+
+            <h3>3. 순천 상업 공간 인테리어 (카페/식당)</h3>
+            <p><strong>순천 상업 인테리어</strong>는 고객 유치와 직결됩니다. <strong>순천 카페 인테리어</strong>는 감각적인 디자인과 효율적인 동선이 중요하며, <strong>순천 식당 인테리어</strong>는 위생과 편의성을 고려한 설계가 필수입니다. <strong>순천 중앙동</strong>, <strong>남제동</strong> 등 상업지구에서는 트렌디한 디자인을 선호합니다. 저희는 고객의 비즈니스 목표에 맞는 맞춤형 디자인을 제안하며, <strong>순천 인테리어 비용</strong> 대비 높은 투자수익률(ROI)을 달성할 수 있도록 돕습니다.</p>
+            <p><strong>순천 인테리어 장점</strong> 중 하나는 다양한 지역 인력 및 자재 수급이 용이하다는 점입니다. 이를 활용하여 <strong>순천 인테리어 금액</strong>을 합리적으로 책정할 수 있습니다. <strong>순천 오천지구 상가</strong> 인테리어의 경우, 신규 상권 형성 초기 단계부터 참여하여 차별화된 컨셉을 구축할 수 있습니다.</p>
+        </section>
+
+        <!-- 비용 및 견적 섹션 -->
+        <section id="estimate">
+            <h2>순천 인테리어 견적 및 비용 분석: 평당 가격은 얼마일까?</h2>
+            <p><strong>순천 인테리어 비용</strong>은 시공 면적(평수), 자재 등급, 디자인 난이도, 그리고 철거 여부 등 여러 요소에 따라 크게 달라집니다. <strong>순천 인테리어 평균 금액</strong>을 알아보기 위해 무작정 <strong>순천 인테리어 싼곳</strong>만 찾기보다는, <strong>순천 인테리어 견적</strong>의 세부 내역을 꼼꼼히 비교해야 합니다. 아래는 2026년 기준 <strong>순천 지역</strong> 일반적인 인테리어 <strong>예상 비용</strong>을 표로 정리한 것입니다.</p>
+
+            <h3>1. 순천 인테리어 서비스별 대략적인 비용 비교 (2026년 기준)</h3>
+            <table id="price-table">
+                <thead>
+                    <tr>
+                        <th>서비스 종류</th>
+                        <th>평균 평수 (m²)</th>
+                        <th>대략적인 <strong>예상 금액</strong> (순천 기준)</th>
+                        <th>주요 시공 내용</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>순천 아파트 전체 인테리어</strong></td>
+                        <td>82m² (25평) ~ 112m² (34평)</td>
+                        <td><span class="price-highlight">1,500만원 ~ 3,500만원</span></td>
+                        <td>철거, 샷시 교체, 목공, 도배, 장판/마루, 주방, 욕실 2개</td>
+                    </tr>
+                    <tr>
+                        <td><strong>순천 부분 인테리어 (주방)</strong></td>
+                        <td>-</td>
+                        <td><span class="price-highlight">400만원 ~ 800만원</span></td>
+                        <td>싱크대 교체, 타일 시공, 조명, 수납장 추가</td>
+                    </tr>
+                    <tr>
+                        <td><strong>순천 부분 인테리어 (욕실 1개)</strong></td>
+                        <td>-</td>
+                        <td><span class="price-highlight">300만원 ~ 500만원</span></td>
+                        <td>방수, 타일, 위생도기, 젠다이 설치</td>
+                    </tr>
+                    <tr>
+                        <td><strong>순천 도배/장판 교체</strong></td>
+                        <td>82m² (25평)</td>
+                        <td><span class="price-highlight">200만원 ~ 350만원</span></td>
+                        <td>도배지/장판 재질에 따라 변동 (실크 vs 합지)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>순천 인테리어 가격</strong> 산정 시 <strong>평당 비용</strong>을 기준으로 하는 경우가 많습니다. 2026년 기준 순천 지역에서 퀄리티 있는 전체 인테리어를 진행하려면 최소 <strong>평당 100만원~150만원</strong>의 <strong>예상 비용</strong>을 잡는 것이 현실적입니다. <strong>순천 인테리어 업체</strong>마다 <strong>견적</strong>의 차이가 큰 이유는 사용하는 자재 등급과 인건비 책정 방식이 다르기 때문입니다. <strong>순천 인테리어 내돈내산 후기</strong>를 참고하여 투명한 <strong>금액</strong>을 제시하는 곳을 선택해야 합니다.</p>
+
+            <h3>2. 견적의 함정: 순천 인테리어 장단점 및 주의사항</h3>
+            <p>저렴한 <strong>순천 인테리어</strong> 견적을 제시하는 <strong>순천 인테리어 싼곳</strong>을 선택할 경우, 자재의 등급이 낮거나 시공 후 A/S가 제대로 이루어지지 않는 <strong>단점</strong>이 발생할 수 있습니다. 반면 <strong>순천 인테리어 추천</strong>을 받는 업체라도 지나치게 높은 <strong>가격</strong>을 제시하는 곳은 불필요한 마진이 포함되었을 수 있습니다. <strong>순천 인테리어 업체 선정 방법</strong>의 핵심은 <strong>장단점 비교</strong>를 통해 가성비와 신뢰도를 모두 확보하는 것입니다.</p>
+            <p><strong>순천 인테리어</strong> 시공 전 꼼꼼한 체크리스트를 통해 <strong>순천 인테리어 비용</strong>을 절감하고 만족도를 높일 수 있습니다. 특히 <strong>순천 조례동</strong>이나 <strong>순천 연향동</strong> 등 기존 아파트의 경우, 샷시 교체 시 정부 지원 사업을 활용할 수 있는지 확인하는 것도 중요합니다. (참고: 국토교통부 그린리모델링 사업)</p>
+
+            <div class="chart-container">
+                <h3>순천 인테리어 비용 구성 요소 비율 (2026년 평균)</h3>
+                <div class="chart-bar" style="width: 40%;">자재비 (40%)</div>
+                <div class="chart-bar" style="width: 35%;">인건비 (35%)</div>
+                <div class="chart-bar" style="width: 15%;">디자인 및 관리비 (15%)</div>
+                <div class="chart-bar" style="width: 10%;">기타 (10%)</div>
+            </div>
+            <p>위 그래프에서 볼 수 있듯이, <strong>순천 인테리어 금액</strong>의 가장 큰 비중을 차지하는 것은 자재비입니다. 따라서 어떤 자재를 선택하느냐에 따라 <strong>순천 인테리어 예상 금액</strong>이 크게 달라집니다.</p>
+
+            <form action="#contact" method="post" id="quick-quote-form">
+                <h3>빠른 순천 인테리어 견적 요청</h3>
+                <p>1분만에 <strong>순천 인테리어 견적</strong>을 받아보세요. <strong>순천 지역</strong> 전문가가 상세히 상담해 드립니다.</p>
+                <label for="area_select">시공 희망 지역 (순천시)</label>
+                <select id="area_select" name="area">
+                    <option value="신대지구">순천 신대지구</option>
+                    <option value="오천지구">순천 오천지구</option>
+                    <option value="조례동">순천 조례동</option>
+                    <option value="연향동">순천 연향동</option>
+                    <option value="왕지동">순천 왕지동</option>
+                    <option value="덕월동">순천 덕월동</option>
+                    <option value="중앙동">순천 중앙동</option>
+                    <option value="금당지구">순천 금당지구</option>
+                    <option value="기타">기타 순천 지역</option>
+                </select>
+
+                <label for="type_select">시공 종류</label>
+                <select id="type_select" name="project_type">
+                    <option value="full">아파트 전체 리모델링</option>
+                    <option value="partial_kitchen">부분 인테리어 (주방)</option>
+                    <option value="partial_bath">부분 인테리어 (욕실)</option>
+                    <option value="commercial">상업 공간 인테리어</option>
+                </select>
+
+                <label for="size_input">평수 (선택)</label>
+                <input type="text" id="size_input" name="size" placeholder="예: 30평">
+
+                <label for="name_input">성함</label>
+                <input type="text" id="name_input" name="name" required>
+
+                <label for="phone_input">연락처</label>
+                <input type="tel" id="phone_input" name="phone" required>
+
+                <button type="submit">견적 문의하기</button>
+            </form>
+        </section>
+
+        <!-- FAQ 섹션 -->
+        <section id="faq">
+            <h2>자주 묻는 질문 (FAQ): 순천 인테리어 업체 선정 시 필수 확인 사항</h2>
+            <p><strong>네이버 지식iN</strong>에서 <strong>'순천 인테리어'</strong>를 검색하는 분들이 가장 궁금해하는 질문들을 모아봤습니다. <strong>순천 인테리어 추천</strong>을 받기 전에 꼭 확인해야 할 정보들입니다.</p>
+
+            <dl>
+                <dt tabindex="0" aria-expanded="false">Q1. 순천 인테리어 업체 선정 시 가장 중요한 체크리스트는 무엇인가요?</dt>
+                <dd>A. <strong>순천 인테리어 업체</strong> 선정 시 가장 중요한 것은 '포트폴리오'와 '정식 사업자 등록 여부'입니다. 특히 <strong>순천 인테리어 후기</strong>를 꼼꼼히 살펴보고, 해당 업체가 실제로 시공한 <strong>순천 지역</strong> 포트폴리오(<strong>순천 신대지구</strong>, <strong>순천 오천지구</strong> 등)를 확인해야 합니다. <strong>순천 인테리어 업체 순위</strong>는 참고만 하고, 직접 상담을 통해 소통이 원활한 업체를 선택하는 것이 좋습니다. 또한, 공사 진행 중 추가 비용이 발생하는 것을 방지하기 위해 <strong>견적</strong>을 상세하게 요청해야 합니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false">Q2. 순천 인테리어 비용 절감을 위한 팁이 있나요?</dt>
+                <dd>A. <strong>순천 인테리어 비용</strong>을 절감하는 가장 좋은 방법은 '불필요한 공사 항목 줄이기'입니다. 예를 들어, 샷시는 재사용이 가능하다면 그대로 두고, 도배나 바닥재 등 눈에 잘 띄는 부분에 집중 투자하는 것입니다. <strong>순천 인테리어 싼곳</strong>을 찾는 것도 좋지만, 자재 선택 시 합리적인 등급을 고르는 것도 중요합니다. 예를 들어, 비싼 수입 타일 대신 국산 프리미엄 타일을 선택하거나, 실크벽지 대신 합지벽지를 선택하는 등 <strong>순천 인테리어</strong> 예산을 조절할 수 있습니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false">Q3. 순천 아파트 인테리어 시공 기간은 얼마나 걸리나요?</dt>
+                <dd>A. <strong>순천 아파트 인테리어</strong> 전체 리모델링 기준, 25평~30평대는 보통 3주에서 4주 정도 소요됩니다. <strong>순천 부분 인테리어</strong>(주방 또는 욕실)는 3일~1주일 내외로 끝나는 경우가 많습니다. <strong>순천 인테리어 견적</strong> 상담 시, 이사 날짜에 맞춰 시공 기간을 명확히 합의해야 합니다. <strong>순천 인테리어 업체</strong>의 일정에 따라 변동될 수 있으므로, 최소 1~2개월 전에 예약하는 것이 좋습니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false">Q4. 인테리어 시공 후 A/S 및 하자 보수는 어떻게 이루어지나요?</dt>
+                <dd>A. <strong>순천 인테리어</strong> 시공 계약서에 A/S 기간과 범위를 명확히 명시해야 합니다. 일반적으로 마루, 샷시, 방수 공사 등은 1년에서 2년 정도의 하자 보수 기간을 보장받습니다. <strong>순천 인테리어 추천</strong> 업체를 선택할 때, 사후 관리가 철저한지 여부를 <strong>순천 인테리어 후기</strong>를 통해 확인하는 것이 중요합니다. 저희는 법적으로 정해진 하자 보수 기간을 준수하며, <strong>순천 지역</strong> 내 시공 완료 후에도 책임 있는 관리를 제공합니다.</dd>
+            </dl>
+        </section>
+
+        <!-- 신뢰성 있는 외부 사이트 링크 섹션 -->
+        <section class="external-links">
+            <h2>신뢰성 있는 외부 자료: 인테리어 관련 법규 및 정보</h2>
+            <p><strong>순천 인테리어</strong> 시공 시 소비자 권리 보호와 안전 기준 준수를 위해 다음 외부 기관의 자료를 참고할 수 있습니다. <strong>순천 지역</strong> 인테리어 계약 전 반드시 확인해 보세요.</p>
+            <ul>
+                <li><a href="https://www.ftc.go.kr/www/cpw/service/selectBusi.do?key=670&busiType=08" target="_blank">공정거래위원회 이사화물 표준약관 (인테리어 계약 시 참고)</a></li>
+                <li><a href="https://www.molit.go.kr/" target="_blank">국토교통부 (건축물 리모델링 관련 법규 및 정책)</a></li>
+                <li><a href="https://namu.wiki/w/%EC%9D%B8%ED%85%8C%EB%A6%AC%EC%96%B4" target="_blank">나무위키: 인테리어 관련 정보 및 개념 정리</a></li>
+                <li><a href="https://www.kicas.or.kr/" target="_blank">대한실내건축가협회 (전문가 정보 및 디자인 트렌드)</a></li>
+                <li><a href="https://www.kca.go.kr/kca/sub/main/contents.do" target="_blank">한국소비자원 (인테리어 소비자 피해 구제 사례)</a></li>
+            </ul>
+        </section>
+
+        <!-- 연락처 및 마무리 섹션 -->
+        <section id="contact">
+            <h2>순천 인테리어 견적 및 상담 신청 (2026년)</h2>
+            <p><strong>순천 인테리어</strong>는 현장 상황에 따라 <strong>비용</strong>과 <strong>견적</strong>이 달라집니다. 정확한 <strong>순천 인테리어 예상 금액</strong>을 위해 <strong>순천 신대지구</strong>, <strong>순천 조례동</strong> 등 고객님의 댁에 방문하여 꼼꼼하게 현장 진단을 해 드립니다. 전화 또는 온라인 상담 신청을 통해 맞춤형 디자인과 <strong>순천 인테리어 비용</strong>을 알아보세요.</p>
+            <form action="#contact" method="post" id="contact-form-detailed">
+                <h3>순천 인테리어 무료 방문 견적 신청</h3>
+                <label for="name_full">성함</label>
+                <input type="text" id="name_full" name="name" required>
+
+                <label for="phone_full">연락처</label>
+                <input type="tel" id="phone_full" name="phone" required>
+
+                <label for="address_full">순천시 시공 주소</label>
+                <input type="text" id="address_full" name="address" placeholder="예: 순천시 조례동 **아파트">
+
+                <label for="area_size">시공 평수</label>
+                <input type="text" id="area_size" name="area_size" placeholder="예: 30평">
+
+                <label for="comment">상담 내용 (원하는 인테리어 스타일, 예산 등)</label>
+                <textarea id="comment" name="comment" rows="5" placeholder="궁금한 점이나 요청사항을 자세히 적어주시면 정확한 상담에 도움이 됩니다."></textarea>
+
+                <button type="submit">순천 인테리어 방문 견적 신청</button>
+            </form>
+            <p style="text-align: center; margin-top: 20px;"><strong>전화 상담:</strong> <a href="tel:01012345678" class="cta-button" style="display: block; width: 300px; margin: 20px auto;">010-1234-5678로 바로 전화하기 📞</a></p>
+        </section>
+
     </main>
-  </body>
-</html>
+
+    <!-- JavaScript for Accordion Functionality -->
+    <script>
+        document.querySelectorAll('dl dt').forEach((dt) => {
+            dt.addEventListener('click', () => {
+                const isActive = dt.classList.contains('active');
+                document.querySelectorAll('dl dt').forEach(item => {
+                    item.classList.remove('active');
+                    item.nextElementSibling.style.maxHeight = '0';
+                    item.nextElementSibling.style.opacity = '0';
+                    item.setAttribute('aria-expanded', 'false');
+                });
+                if (!isActive) {
+                    dt.classList.add('active');
+                    dt.nextElementSibling.style.maxHeight = dt.nextElementSibling.scrollHeight + 'px';
+                    dt.nextElementSibling.style.opacity = '1';
+                    dt.setAttribute('aria-expanded', 'true');
+                }
+            });
+            dt.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    dt.click();
+                }
+            });
+        });
+    </script>
+
+  
